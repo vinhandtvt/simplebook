@@ -6,6 +6,8 @@ import { Injectable } from '@angular/core';
 })
 export class UserService {
 
+  user: any;
+
   constructor(private httpClient: HttpClient) { }
 
 

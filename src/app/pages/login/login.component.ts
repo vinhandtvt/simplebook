@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private userService: UserService, private snackbar: MatSnackBar) { }
+  constructor(private fb: FormBuilder, private userService: UserService, private snackbar: MatSnackBar, private router: Router) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -24,16 +25,15 @@ export class LoginComponent implements OnInit {
   login() {
     this.userService.getUser(this.loginForm.value.email).then(
       (res: any) => {
-        console.log(res);
         if (res.length === 0) {
-          console.log('Account does not exist');
           this.snackbar.open('Account does not exist');
         } else {
           if (res[0].password === this.loginForm.value.password) {
-            console.log('matched');
-            this.snackbar.open('login successfully')
+            this.snackbar.open('login successfully');
+            this.userService.user = res[0];
+            localStorage.setItem('user', JSON.stringify(res[0]));
+            this.router.navigate(['/posts']);
           } else {
-            console.log('incorrect password');
             this.snackbar.open('Incorrect password')
 
           }

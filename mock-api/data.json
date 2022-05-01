@@ -1,10 +1,22 @@
 {
   "users": [
     {
-      "email": "nhanvivan@gmailcom",
-      "username": "csmanager.test",
-      "password": "Bbc123123@",
+      "email": "nhanvivan@gmail.com",
+      "username": "vinhandtvt",
+      "password": "123456test",
       "id": 1
+    },
+    {
+      "email": "teoti@gmail.com",
+      "username": "teocon",
+      "password": "123456",
+      "id": 2
+    },
+    {
+      "email": "john@gmail.com",
+      "username": "johnlee",
+      "password": "123456",
+      "id": 3
     }
   ],
   "posts": []

@@ -1,5 +1,7 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -11,7 +13,7 @@ export class CreateAccountComponent implements OnInit {
 
   signUpForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, public userService: UserService) { }
+  constructor(private fb: FormBuilder, public userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.signUpForm = this.fb.group({
@@ -23,11 +25,11 @@ export class CreateAccountComponent implements OnInit {
 
   create() {
     this.userService.createNewUser(this.signUpForm.value).then((res) => {
-      console.log(res);
-
+      this.userService.user = res;
+      localStorage.setItem('user', JSON.stringify(res));
+      this.router.navigate(['/posts']);
     }).catch((err) => {
       console.log(err);
-
     });
   }
 
